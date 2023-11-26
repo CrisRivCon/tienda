@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Iva;
 use Illuminate\Http\Request;
+use Spatie\FlareClient\View;
 
 class IvaController extends Controller
 {
@@ -22,7 +23,7 @@ class IvaController extends Controller
      */
     public function create()
     {
-        //
+        return view('ivas.create');
     }
 
     /**
@@ -30,7 +31,9 @@ class IvaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $this->validar($request);
+        Iva::create($validated);
+        return redirect()->route('ivas.index');
     }
 
     /**
@@ -46,7 +49,9 @@ class IvaController extends Controller
      */
     public function edit(Iva $iva)
     {
-        //
+        return view('ivas.edit', [
+            'iva' => $iva
+        ]);
     }
 
     /**
@@ -54,7 +59,9 @@ class IvaController extends Controller
      */
     public function update(Request $request, Iva $iva)
     {
-        //
+        $validated = $this->validar($request);
+        $iva->update($validated);
+        return redirect()->route('ivas.index');
     }
 
     /**
@@ -62,6 +69,16 @@ class IvaController extends Controller
      */
     public function destroy(Iva $iva)
     {
-        //
+        $iva->delete();
+        return redirect()->route('ivas.index');
+    }
+
+    private function validar(Request $request)
+    {
+        return $request->validate([
+                    'tipo' => 'required|max:255',
+                    'por' => 'numeric|between:0,100'
+                ]);
+
     }
 }

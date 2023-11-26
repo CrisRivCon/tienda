@@ -38,6 +38,21 @@
                 </select>
                 <x-input-error :messages="$errors->get('categoria_id')" class="mt-2" />
             </div>
+            <!-- Iva -->
+            <div class="mt-4">
+                <x-input-label for="iva_id" :value="'Iva del artículo'" />
+                <select id="iva_id"
+                    class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full"
+                    name="iva_id" required>
+                    @foreach ($ivas as $iva)
+                        <option value="{{ $iva->id }}"
+                            {{ $iva->id == $articulo->iva_id ? 'selected' : '' }}>
+                            {{ $iva->tipo }}
+                        </option>
+                    @endforeach
+                </select>
+                <x-input-error :messages="$errors->get('iva_id')" class="mt-2" />
+            </div>
 
             <div class="flex items-center justify-end mt-4">
                 <a href="{{ route('articulos.index') }}">
