@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('ivas', function (Blueprint $table) {
             $table->id();
             $table->string('tipo');
-            $table->tinyInteger('por');
+            $table->decimal('por', 4, 2);
             $table->timestamps();
         });
     }

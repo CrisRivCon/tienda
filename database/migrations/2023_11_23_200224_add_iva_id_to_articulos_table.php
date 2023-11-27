@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('articulos', function (Blueprint $table) {
-            $table->foreignId('iva_id')->default(Iva::all()->first())->constrained();
+            $table->foreignId('iva_id')->default(Iva::all()->first()->id)->constrained();
         });
     }
 
@@ -23,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('articulos', function (Blueprint $table) {
-            //
+            $table->dropColumn('iva_id');
         });
     }
 };
